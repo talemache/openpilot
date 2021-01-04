@@ -270,10 +270,6 @@ void encoder_thread(RotateState *rotate_state, int cam_idx) {
       VIPCBufExtra extra;
       VisionBuf* buf = vipc_client.recv(&extra);
       if (buf == nullptr){
-        if (errno == EINTR){
-          do_exit = true;
-          break;
-        }
         continue;
       }
 
