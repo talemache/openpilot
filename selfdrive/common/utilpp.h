@@ -7,6 +7,8 @@
 #include <memory>
 #include <sstream>
 #include <fstream>
+#include <thread>
+#include <chrono>
 
 namespace util {
 
@@ -60,6 +62,18 @@ inline std::string readlink(std::string path) {
   return "";
 }
 
+inline std::string getenv_default(const char* env_var, const char * suffix, const char* default_val) {
+  const char* env_val = getenv(env_var);
+  if (env_val != NULL){
+    return std::string(env_val) + std::string(suffix);
+  } else {
+    return std::string(default_val);
+  }
+}
+
+inline void sleep_for(const int milliseconds) {
+  std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+}
 }
 
 struct unique_fd {
